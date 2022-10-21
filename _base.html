@@ -40,16 +40,9 @@
           <div class="p-2">
           {% set links_found = namespace(json=0) %}
 
-          {% for link in data['links'] %}
-            {% if link['rel'] == 'alternate' and link['type'] and link['type'] in ['application/json', 'application/geo+json'] %}
-              {% set links_found.json = 1 %}
-              <a href="{{ link['href'] }}">JSON</a>
-            {% endif %}
-          {% endfor %}
-
-          {% if links_found.json == 0 %}
+          {% block formats %}
             <a href="?f=json">JSON</a>
-          {% endif %}
+          {% endblock %}
           | <a href="mailto:{{ config['metadata:main']['contact_email'] }}">Contact</a>
           </div>
         </div>

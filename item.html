@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-{% block title %}{{ super() }} {{ data['properties']['externalId'] }} {% endblock %}
+{% block title %}{{ super() }} {{ data['properties']['title'] }} {% endblock %}
 {% block extrahead %}
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -12,23 +12,24 @@
 
 {% endblock %}
 
+{% block formats %}
+  {{ super() }} | <a href="?f=xml">XML</a>
+{% endblock %}
+
 {% block crumbs %}
 {{ super() }} /
 <a href="{{ config['server']['url'] }}/collections">Collections</a> /
 <a href="{{ config['server']['url'] }}/collections/{{ data['collection'] }}">{{ data['title'] }}</a> /
 <a href="{{ config['server']['url'] }}/collections/{{ data['collection'] }}/items">Items</a> /
-<a href="{{ config['server']['url'] }}/collections/{{ data['collection'] }}/items/{{ data['id'] }}">{{ data['id'] }}</a>
+<a href="{{ config['server']['url'] }}/collections/{{ data['collection'] }}/items/{{ data['id'] }}">{{ data['properties']['title'] or data['id']  }}</a>
 {% endblock %}
+
 {% block body %}
-
 <section id="item">
-
-<h2>{{ data['properties']['externalId'] }}</h2>
-
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-8">
-          <h1>{{ data['properties']['title'] }}</h1>
+          <h1>{{ data['properties']['title'] or data['id'] }}</h1>
           <p>
                 {% for concept in data['properties'].get('themes',{}).get('concepts',[]) %}
                  <span class="badge rounded-pill bg-primary bg-opacity-50">{{ concept }}</span>
