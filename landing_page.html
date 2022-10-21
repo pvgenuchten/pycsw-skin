@@ -1,0 +1,54 @@
+{% extends "_base.html" %}
+{% block title %}{{ super() }} Home {% endblock %}
+{% block body %}
+
+<section id="Welcome" class="pb-3">
+<h1>{{ config['metadata:main']['identification_title'] }}</h1>
+<p>This catalogue contains dataset registrations made available for this project.</p>
+</section>
+</div>
+</div>
+</div>
+<div class="bg-success text-dark bg-opacity-25">
+<section id="search" class="container pt-5 pb-3">
+  {% include 'search_and_recent.html' %}
+</section>
+</div>
+<div class="container pt-3">
+  <div class="row">
+<section id="links" class="pt-5">
+<div>
+  <h3>Documentation</h3>
+  Read more about the various API's which are available for this service.
+  <div class="row">
+    <div class="col">
+    <ul class="list-group">
+    <li class="list-group-item list-group-item-action"><a title="Collections" href="{{ config['server']['url'] }}/collections">Collections</a></li>
+    <li class="list-group-item list-group-item-action">OpenAPI
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-action"><a title="Swagger" href="{{ config['server']['url'] }}/openapi?f=html">Swagger</a></li>
+        <li class="list-group-item list-group-item-action"><a title="JSON" href="{{ config['server']['url'] }}/openapi?f=json">JSON</a></li>
+      </ul>
+    </li>
+    <li class="list-group-item list-group-item-action"><a title="Conformance" href="{{ config['server']['url'] }}/conformance">Conformance</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="list-group">
+      <li class="list-group-item list-group-item-action"><a title="CSW 3.0.0 endpoint" href="{{ config['server']['url'] }}/csw">CSW 3.0.0</a></li>
+    <li class="list-group-item list-group-item-action"><a title="CSW 2.0.2 endpoint" href="{{ config['server']['url'] }}/csw?service=CSW&version=2.0.2&request=GetCapabilities">CSW 2.0.2</a></li>
+    <li class="list-group-item list-group-item-action"><a title="OpenSearch endpoint" href="{{ config['server']['url'] }}/opensearch">OpenSearch</a></li>
+    <li class="list-group-item list-group-item-action"><a title="STAC API" href="{{ config['server']['url'] }}/search">STAC API</a></li>
+    <li class="list-group-item list-group-item-action"><a title="OAI-PMH endpoint" href="{{ config['server']['url'] }}/oaipmh">OAI-PMH</a></li>
+    <li class="list-group-item list-group-item-action"><a title="SRU endpoint" href="{{ config['server']['url'] }}/sru">SRU</a></li>
+</ul>
+    </div>
+  </div>
+  
+</div>
+</section>
+
+
+</script>
+
+{% endblock %}

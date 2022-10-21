@@ -1,0 +1,29 @@
+<h2>Search the catalogue</h2>
+
+<form method="get" action="/collections/metadata:main/items">
+  <div class="input-group mb-3 mt-2">
+    <input type="text" name="q" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
+    <input type="submit" class="btn btn-primary" type="button" id="button-addon2"></input>
+  </div>
+</form>
+
+<div id="recent" class="row d-flex justify-content-evenly pt-3"></div>
+
+<script>
+const url = "/collections/metadata:main/items?f=json&limit=5&sortby=-recordUpdated"; 
+fetch(url).then(response => response.text()).then(data => {
+html = "<h4>Recent changes</h4>";
+data =  JSON.parse(data);
+
+data.features.forEach(r => {
+  try {
+  p = r.properties;
+  html+="<div class='col m-2 card bg-opacity-10 bg-success'><div class='card-body'><h5 class='card-title'><a href='/collections/metadata:main/items/"+
+    encodeURIComponent(r.id)+"'>"+
+    (p.title?p.title.substring(0,60):"")+"</a></h5><p class='card-text'>"+
+    (p.description?p.description.substring(0,120):"")+"</p></div></div>";
+  } catch (e) {console.log(e)}
+})
+document.getElementById('recent').innerHTML = html;
+})
+</script>

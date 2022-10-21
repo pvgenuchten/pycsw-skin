@@ -1,0 +1,26 @@
+{% extends "_base.html" %}
+{% block title %}{{ super() }} {{ data['title'] }} {% endblock %}
+
+{% block crumbs %}
+{{ super() }} /
+<a href="{{ config['server']['url'] }}/collections">Collections</a> /
+<a href="{{ config['server']['url'] }}/collections/{{ data['id'] }}">{{ data['title'] }}</a>
+{% endblock %}
+
+{% block body %}
+
+<section id="collection" class="pt-2 pb-3">
+  <h2>{{ data['title'] }}</h2>
+  <p>{{ data['description']  }}</p>
+</section>
+</div>
+</div>
+</div>
+<div class="bg-success text-dark bg-opacity-25">
+  <section id="search" class="container pt-5 pb-3">
+  {% include 'search_and_recent.html' %}
+</section>
+</div>
+<div class="container pt-3">
+  <div class="row">
+  {% endblock %}

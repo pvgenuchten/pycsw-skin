@@ -1,0 +1,116 @@
+{% extends "_base.html" %}
+{% block title %}{{ super() }} {{ data['properties']['externalId'] }} {% endblock %}
+{% block extrahead %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <style>
+        #records-map {
+            height: 350px;
+        }
+    </style>
+
+{% endblock %}
+
+{% block crumbs %}
+{{ super() }} /
+<a href="{{ config['server']['url'] }}/collections">Collections</a> /
+<a href="{{ config['server']['url'] }}/collections/{{ data['collection'] }}">{{ data['title'] }}</a> /
+<a href="{{ config['server']['url'] }}/collections/{{ data['collection'] }}/items">Items</a> /
+<a href="{{ config['server']['url'] }}/collections/{{ data['collection'] }}/items/{{ data['id'] }}">{{ data['id'] }}</a>
+{% endblock %}
+{% block body %}
+
+<section id="item">
+
+<h2>{{ data['properties']['externalId'] }}</h2>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-8">
+          <h1>{{ data['properties']['title'] }}</h1>
+          <p>
+                {% for concept in data['properties'].get('themes',{}).get('concepts',[]) %}
+                 <span class="badge rounded-pill bg-primary bg-opacity-50">{{ concept }}</span>
+                {% endfor %}
+
+                {% for keyword in data['properties'].get('keywords',[]) %}
+                  <span class="badge rounded-pill bg-success bg-opacity-50">{{ keyword }}</span>
+                {% endfor %}
+                  <span class="badge rounded-pill bg-warning bg-opacity-50 text-dark">{{ data['properties'].get('type','').split('/').pop() }}</span>
+          </p>
+          <p>
+            {{ data['properties']['description'] }}
+          </p> 
+          <p>
+          {% for e in data['properties']['extent'] %}
+              Spatial: {{ e['spatial']['bbox'][0] }}
+              {% if e['temporal'] %} <br/>
+              Temporal: {{ e['temporal']['interval'][0] }}
+              {% endif %}
+            {% endfor %}
+           </p>
+           {% if data['properties']['formats'] %}
+           <h5>Formats</h5>
+           <ul>
+           {% for f in data['properties'].get('formats',[]) %}
+              <li>{{ f }}</li>
+            {% endfor %}</ul>
+            {% endif %}
+
+            <h5>Links</h5>
+              <ul>
+                {% for link in data['links'] %}
+                <li><a href="{{ link['href'] }}" title="{{ link['description'] }}">{{ link['name'] }}</a></li>
+                {% endfor %}
+              </ul>
+    </div>
+    <div class="col-lg-4">
+      <div id="records-map"></div>
+    </div>
+  </div>
+</div>
+
+</section>
+
+{% endblock %}
+
+{% block extrafoot %}
+<script>
+var map = L.map('records-map').setView([0, 0], 1);
+map.addLayer(new L.TileLayer(
+    'https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: 'Map data &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+    }
+));
+var geojson_data = {{ data | to_json }};
+var items = new L.GeoJSON(geojson_data);
+
+map.addLayer(items);
+var bounds = items.getBounds();
+if (bounds.isValid() === true) {
+    map.fitBounds(bounds);
+}
+
+var highlightStyle = {
+    color: 'red',
+    dashArray: '',
+    fillOpacity: 0.5
+}
+
+$(document).ready(function() {
+    $('#items-table-table tr').on('mouseenter', function(e){
+        id_ = $(this).find('[id]').attr('id');
+        layer = items.getLayer(id_); //your feature id here
+        if (layer) {
+            layer.setStyle(highlightStyle);
+        }
+    }).on('mouseout', function(e){
+        id_ = $(this).find('[id]').attr('id');
+        layer = items.getLayer(id_); //your feature id here
+        items.resetStyle(layer);
+    });
+});
+</script>
+{% endblock %}
