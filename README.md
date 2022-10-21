@@ -1,6 +1,6 @@
 # pycsw-skin
 
-A customisation of the standard pycsw templates
+A customisation of the standard [pycsw](https://github.com/geopython/pycsw) templates
 
 ## Installation
 
