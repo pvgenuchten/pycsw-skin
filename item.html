@@ -9,7 +9,13 @@
             height: 350px;
         }
     </style>
-
+<script type="application/ld+json">
+    {% set schema_org = data['properties'].copy() %}
+    {% set foo = schema_org.update({'name': data['properties'].get('title',data['id']),'@context':"http://schema.org/", '@type': ('schema:'+data['properties'].get('type',['Dataset']).split('/').pop()), '@id':(config['server']['url']+"/collections/"+data['collection']+"/items/"+data['id']) }) %}
+    {% set foo = schema_org.pop('title','') %}
+    {% set foo = schema_org.pop('type','') %}
+    {{ schema_org | to_json }}
+</script>
 {% endblock %}
 
 {% block formats %}
@@ -44,12 +50,14 @@
             {{ data['properties']['description'] }}
           </p> 
           <p>
-          {% for e in data['properties']['extent'] %}
-              Spatial: {{ e['spatial']['bbox'][0] }}
+            {% if data['properties']['extent'] %}
+          {% for k,e in data['properties']['extent'].items() %}
+              Spatial: {{ e }}
               {% if e['temporal'] %} <br/>
               Temporal: {{ e['temporal']['interval'][0] }}
               {% endif %}
             {% endfor %}
+            {% endif %}
            </p>
            {% if data['properties']['formats'] %}
            <h5>Formats</h5>
@@ -57,6 +65,20 @@
            {% for f in data['properties'].get('formats',[]) %}
               <li>{{ f }}</li>
             {% endfor %}</ul>
+            {% endif %}
+
+            {% if data['properties']['providers'] %}
+              <h5>Providers</h5>
+              {% for f in data['properties']['providers'] %}
+                
+              {% endfor %}
+            {% endif %}
+           
+            {% if data['properties']['license'] %}
+            {% endif %}
+           
+            {% if data['properties']['rights'] %}
+            
             {% endif %}
 
             <h5>Links</h5>

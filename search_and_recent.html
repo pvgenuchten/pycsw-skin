@@ -20,7 +20,7 @@ data.features.forEach(r => {
   p = r.properties;
   html+="<div class='col m-2 card bg-opacity-10 bg-success'><div class='card-body'><h5 class='card-title'><a href='/collections/metadata:main/items/"+
     encodeURIComponent(r.id)+"'>"+
-    (p.title?p.title.substring(0,60):"")+"</a></h5><p class='card-text'>"+
+    (p.title?p.title.substring(0,60):r.id)+"</a></h5><p class='card-text'>"+
     (p.description?p.description.substring(0,120):"")+"</p></div></div>";
   } catch (e) {console.log(e)}
 })

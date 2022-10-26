@@ -8,19 +8,19 @@
 {% endblock %}
 
 {% block body %}
-
-<section id="collection" class="pt-2 pb-3">
-  <h2>{{ data['title'] }}</h2>
-  <p>{{ data['description']  }}</p>
-</section>
-</div>
-</div>
+      <section id="collection" class="pt-2 pb-5">
+        <h2>{{ data['title'] }}</h2>
+        <p>{{ data['description'] }}</p>
+      </section>
+    </div>
+  </div>
 </div>
 <div class="bg-success text-dark bg-opacity-25">
   <section id="search" class="container pt-5 pb-3">
-  {% include 'search_and_recent.html' %}
-</section>
+    {% include 'search_and_recent.html' %}
+  </section>
 </div>
 <div class="container pt-3">
   <div class="row">
-  {% endblock %}
+    <div> 
+{% endblock %}
