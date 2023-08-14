@@ -20,39 +20,57 @@
       <section id="links" class="pt-5">
         <div>
           <h3>Documentation</h3>
-          Read more about the various API's which are available for this service.
+          <p>
+            Below is a list of the service endpoints available in this service.
+          </p>
+          <p>
+            A link with more information about the various API's is included.
+          </p>
           <div class="row">
             <div class="col">
               <ul class="list-group list-group-flush">
-                <li class="list-group-item list-group-item-action"><a title="Collections"
-                    href="{{ config['server']['url'] }}/collections">Collections</a></li>
-                <li class="list-group-item list-group-item-action">OpenAPI
-                  <ul class="list-group">
-                    <li class="list-group-item list-group-item-action"><a title="Swagger"
-                        href="{{ config['server']['url'] }}/openapi?f=html">Swagger</a></li>
-                    <li class="list-group-item list-group-item-action"><a title="JSON"
-                        href="{{ config['server']['url'] }}/openapi?f=json">JSON</a></li>
-                  </ul>
+                <li class="list-group-item list-group-item-action">
+                  Catalog Service for the Web (CSW) 
+                  - <a title="CSW v3.0.0 endpoint"
+                    href="{{ config['server']['url'] }}/csw">v3.0.0</a> 
+                  - <a title="CSW v2.0.2 endpoint"
+                    href="{{ config['server']['url'] }}/csw?service=CSW&version=2.0.2&request=GetCapabilities">
+                    v2.0.2</a>
+                  - <a title="Documentation" href="https://www.ogc.org/standard/cat/">Documentation</a>
                 </li>
-                <li class="list-group-item list-group-item-action"><a title="Conformance"
-                    href="{{ config['server']['url'] }}/conformance">Conformance</a></li>
-              </ul>
-            </div>
-            <div class="col">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item list-group-item-action"><a title="CSW 3.0.0 endpoint"
-                    href="{{ config['server']['url'] }}/csw">CSW 3.0.0</a></li>
-                <li class="list-group-item list-group-item-action"><a title="CSW 2.0.2 endpoint"
-                    href="{{ config['server']['url'] }}/csw?service=CSW&version=2.0.2&request=GetCapabilities">CSW
-                    2.0.2</a></li>
-                <li class="list-group-item list-group-item-action"><a title="OpenSearch endpoint"
-                    href="{{ config['server']['url'] }}/opensearch">OpenSearch</a></li>
-                <li class="list-group-item list-group-item-action"><a title="STAC API"
-                    href="{{ config['server']['url'] }}/search">STAC API</a></li>
-                <li class="list-group-item list-group-item-action"><a title="OAI-PMH endpoint"
-                    href="{{ config['server']['url'] }}/oaipmh">OAI-PMH</a></li>
-                <li class="list-group-item list-group-item-action"><a title="SRU endpoint"
-                    href="{{ config['server']['url'] }}/sru">SRU</a></li>
+                <li class="list-group-item list-group-item-action">
+                    OGCAPI-Records 
+                    - <a title="Collections"
+                      href="{{ config['server']['url'] }}/collections">Collections Endpoint</a>
+                    - <a title="OGCAPI-Records Open API Specification"
+                      href="{{ config['server']['url'] }}/openapi">Open API Specification</a>
+                    - <a title="OGCAPI-Records Conformance"
+                      href="{{ config['server']['url'] }}/conformance">Conformance</a>
+                    - <a title="OGCAPI-Records Documentation"
+                      href="https://ogcapi.ogc.org/records/">Documentation</a>
+                    </li>
+                <li class="list-group-item list-group-item-action">
+                  Opensearch
+                  - <a title="OpenSearch endpoint"
+                    href="{{ config['server']['url'] }}/opensearch">Endpoint</a> 
+                  - <a href="https://github.com/dewitt/opensearch/blob/master/opensearch-1-1-draft-6.md">Documentation</a></li>
+                <li class="list-group-item list-group-item-action">
+                  STAC API - SpatioTemporal Asset Catalogs 
+                  - <a title="STAC API"
+                    href="{{ config['server']['url'] }}/search">Endpoint</a>
+                  - <a href="https://stacspec.org/en" title="STAC - Documentation">Documentation</a>
+                  </li>
+                <li class="list-group-item list-group-item-action">
+                  Open Archives Initiative Protocol for Metadata Harvesting
+                  - <a title="OAI-PMH Open Archives Initiative Protocol for Metadata Harvesting"
+                    href="{{ config['server']['url'] }}/oaipmh">Endpoint</a> 
+                  - <a href="https://www.openarchives.org/pmh/" >Documentation</a></li>
+                <li class="list-group-item list-group-item-action">
+                  SRU - Search/Retrieve via URL
+                  - <a title="SRU - Endpoint"
+                    href="{{ config['server']['url'] }}/sru">Endpoint</a> 
+                  - <a title="SRU - Documentation"
+                    href="https://www.loc.gov/standards/sru/">Documentation</a> </li>
               </ul>
             </div>
           </div>

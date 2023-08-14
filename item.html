@@ -37,14 +37,20 @@
     <div class="col-lg-8">
           <h1>{{ data['properties']['title'] or data['id'] }}</h1>
           <p>
-                {% for concept in data['properties'].get('themes',{}).get('concepts',[]) %}
-                 <span class="badge rounded-pill bg-primary bg-opacity-50">{{ concept }}</span>
-                {% endfor %}
+            {% set used = [] %}
+            {% for theme in data['properties'].get('themes',[]) %}
+              {% for concept in theme.get('concepts',[]) %}
+                {% set u = used.append(concept['name']) %}
+                <span class="badge rounded-pill bg-primary bg-opacity-50" title="From: {{ theme.get('scheme','') }}">{{ concept['name'] or concept['url'] }}</span>
+              {% endfor %}
+            {% endfor %}
 
-                {% for keyword in data['properties'].get('keywords',[]) %}
-                  <span class="badge rounded-pill bg-success bg-opacity-50">{{ keyword }}</span>
-                {% endfor %}
-                  <span class="badge rounded-pill bg-warning bg-opacity-50 text-dark">{{ data['properties'].get('type','').split('/').pop() }}</span>
+            {% for keyword in data['properties'].get('keywords',[]) %}
+              {% if not keyword in used %}
+              <span class="badge rounded-pill bg-success bg-opacity-50">{{ keyword }}</span>
+              {% endif %}
+            {% endfor %}
+            <span class="badge rounded-pill bg-warning bg-opacity-50 text-dark">{{ data['properties'].get('type','').split('/').pop() }}</span>
           </p>
           <p>
             {{ data['properties']['description'] }}

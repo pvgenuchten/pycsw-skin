@@ -42,7 +42,6 @@
           <thead>
             <tr>
               <th>Title</th>
-              <th>Description</th>
               <th>Type</th>
               <th>Date</th>
             </tr>
@@ -53,8 +52,8 @@
               <td id="{{ rec['properties']['id'] }}">
                 <a title="{{ rec['properties']['title'] | striptags }}" 
                    href="{{ config['server']['url'] }}/collections/{{ data['collection'] }}/items/{{ rec['id'] | urlencode }}">
-                     {{ (rec['properties']['title'] | striptags | truncate) or rec['id'] }}</a></td>
-              <td>{{ rec['properties']['title'] | striptags | truncate }}</td>
+                     {{ (rec['properties']['title'] | striptags | truncate(100)) or rec['id'] }}</a>
+                     <br/>{{ rec['properties']['description'] | striptags | truncate(255) }}</td>
               <td>{{ rec['properties']['type'].split('/').pop() }}</td>
               <td>{{ rec['properties']['recordUpdated'].split('T')[0] }}</td>
             </tr>
